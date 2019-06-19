@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
 using System;
 
 namespace WordPressAutomationFramework
@@ -10,6 +12,7 @@ namespace WordPressAutomationFramework
 
         public static void Initialize()
         {
+            new DriverManager().SetUpDriver(new ChromeConfig());
             Instance = new ChromeDriver();
             Instance.Manage().Window.Maximize();
             Instance.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(5);
@@ -17,7 +20,12 @@ namespace WordPressAutomationFramework
 
         public static void Close()
         {
-           // Instance.Close();
+           Instance.Close();
+        }
+
+        public static void Quit()
+        {
+            Instance.Quit();
         }
     }
 }
